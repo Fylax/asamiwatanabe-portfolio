@@ -8,10 +8,12 @@
     "unsafebuild": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "typesafe-i18n": "typesafe-i18n"
+    "typesafe-i18n": "typesafe-i18n",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/cloudflare": "^13.5.0",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/ts-plugin": "^1.10.7",
     "@playform/compress": "^0.2.3",
@@ -33,6 +35,10 @@
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "0.14.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.59.2"
+    "typescript-eslint": "^8.59.2",
+    "wrangler": "^4.90.0"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

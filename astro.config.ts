@@ -10,8 +10,6 @@ import { baseLocale, locales, i18nObject } from "./src/i18n/i18n-util";
 import { loadAllLocales } from "./src/i18n/i18n-util.sync";
 import type { Locales, TranslationFunctions } from "./src/i18n/i18n-types";
 
-import cloudflare from "@astrojs/cloudflare";
-
 loadAllLocales();
 const LL = locales.reduce(
   (acc, l) => Object.assign(acc, {[l]: i18nObject(l)}), 
@@ -22,7 +20,6 @@ const LL = locales.reduce(
 // https://astro.build/config
 export default defineConfig({
   site: "https://localhost:4321",
-
   integrations: [
     favicons({
       name: LL.ja.seo.homepage.title(),
@@ -73,24 +70,19 @@ export default defineConfig({
     }),
     sitemap(),
   ],
-
   compressHTML: import.meta.env.PROD,
   output: "static",
-
   build: {
     format: "directory",
     inlineStylesheets: "never",
   },
-
   devToolbar: {
     enabled: false,
   },
-
   prefetch: {
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
-
   i18n: {
     locales: locales,
     defaultLocale: baseLocale,
@@ -98,13 +90,11 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
-
   image: {
     service: {
       entrypoint: "src/services/image-compression.ts",
     },
   },
-
   fonts: [
     {
       provider: fontProviders.local(),
@@ -128,6 +118,4 @@ export default defineConfig({
       },
     },
   ],
-
-  adapter: cloudflare(),
 });

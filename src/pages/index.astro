@@ -1,0 +1,13 @@
+---
+import { baseLocale, locales } from "@i18n/i18n-util";
+---
+<script is:inline define:vars={{ defaultLangage: baseLocale, locales }}>
+
+for (const language of navigator.languages) {
+    if (locales.includes(language)) {
+        location.replace(`/${language}`);
+        break;
+    }
+}
+
+</script>

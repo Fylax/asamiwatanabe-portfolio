@@ -1,0 +1,47 @@
+---
+import WorkPage from "@components/WorkPage.astro";
+
+export { getStaticPaths };
+import { getStaticPaths } from "../../../locales";
+
+import img01 from "@assets/works/02_Gallery_2_Nature_Inner_World/01_fluffy_shaved_ice.jpg";
+import img02 from "@assets/works/02_Gallery_2_Nature_Inner_World/02_deep_in_the_sea.jpg";
+import img03 from "@assets/works/02_Gallery_2_Nature_Inner_World/03_i_wanna_sea.jpg";
+import img04 from "@assets/works/02_Gallery_2_Nature_Inner_World/04_sakana.jpg";
+import img05 from "@assets/works/02_Gallery_2_Nature_Inner_World/05_busstop.jpg";
+import img06 from "@assets/works/02_Gallery_2_Nature_Inner_World/06_picnic.jpg";
+import img07 from "@assets/works/02_Gallery_2_Nature_Inner_World/07_nishikigoi.jpg";
+import img08 from "@assets/works/02_Gallery_2_Nature_Inner_World/08_play_a_staring_contest.jpg";
+import img09 from "@assets/works/02_Gallery_2_Nature_Inner_World/09_trip_adventure.jpg";
+import img10 from "@assets/works/02_Gallery_2_Nature_Inner_World/10_princess_kaguya.jpg";
+import img11 from "@assets/works/02_Gallery_2_Nature_Inner_World/11_maturi.jpg";
+import img12 from "@assets/works/02_Gallery_2_Nature_Inner_World/12_arigatou.jpg";
+import img13 from "@assets/works/02_Gallery_2_Nature_Inner_World/13_hearts.jpg";
+import img14 from "@assets/works/02_Gallery_2_Nature_Inner_World/14_the_first_light_dawn.jpg";
+
+
+const images = new Map<string, ImageMetadata>([
+  ["02_Gallery_2_Nature_Inner_World/01_fluffy_shaved_ice.jpg", img01],
+  ["02_Gallery_2_Nature_Inner_World/02_deep_in_the_sea.jpg", img02],
+  ["02_Gallery_2_Nature_Inner_World/03_i_wanna_sea.jpg", img03],
+  ["02_Gallery_2_Nature_Inner_World/04_sakana.jpg", img04],
+  ["02_Gallery_2_Nature_Inner_World/05_busstop.jpg", img05],
+  ["02_Gallery_2_Nature_Inner_World/06_picnic.jpg", img06],
+  ["02_Gallery_2_Nature_Inner_World/07_nishikigoi.jpg", img07],
+  ["02_Gallery_2_Nature_Inner_World/08_play_a_staring_contest.jpg", img08],
+  ["02_Gallery_2_Nature_Inner_World/09_trip_adventure.jpg", img09],
+  ["02_Gallery_2_Nature_Inner_World/10_princess_kaguya.jpg", img10],
+  ["02_Gallery_2_Nature_Inner_World/11_maturi.jpg", img11],
+  ["02_Gallery_2_Nature_Inner_World/12_arigatou.jpg", img12],
+  ["02_Gallery_2_Nature_Inner_World/13_hearts.jpg", img13],
+  ["02_Gallery_2_Nature_Inner_World/14_the_first_light_dawn.jpg", img14],
+]);
+
+const workIndes = 1;
+
+---
+<WorkPage
+  workIndex={workIndes}
+  images={images}
+  mainImage={img13}
+/>

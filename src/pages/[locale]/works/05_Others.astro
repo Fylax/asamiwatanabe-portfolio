@@ -1,0 +1,23 @@
+---
+import WorkPage from "@components/WorkPage.astro";
+
+export { getStaticPaths };
+import { getStaticPaths } from "../../../locales";
+
+import img01 from "@assets/works/05_Others/01_a_girl.jpg";
+import img02 from "@assets/works/05_Others/02_new_year_card.jpg";
+import img03 from "@assets/works/05_Others/03_smile.jpg";
+
+const images = new Map<string, ImageMetadata>([
+  ["05_Others/01_a_girl.jpg", img01],
+  ["05_Others/02_new_year_card.jpg", img02],
+  ["05_Others/03_smile.jpg", img03],
+]);
+
+const workIndes = 4;
+---
+<WorkPage
+  workIndex={workIndes}
+  images={images}
+  mainImage={img02}
+/>

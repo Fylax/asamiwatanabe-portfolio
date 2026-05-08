@@ -1,0 +1,251 @@
+---
+interface Props {
+  isMobile: boolean;
+}
+
+const { isMobile } = Astro.props;
+
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import Icon from "./Icon.astro";
+import { locales } from "@i18n/i18n-util";
+
+const current = Astro.locals.locale;
+
+// Optional: map locale codes to human‑readable labels
+const labels = {
+  en: "English",
+  it: "Italiano",
+  ja: "日本語",
+};
+---
+
+<langauge-selector
+  class:list={[{ "lang-mobile": isMobile }, { "lang-desktop": !isMobile }]}
+>
+  <button slot="trigger" class="lang-button hoverable">
+    <span class="sr-only">{Astro.locals.L.ui.screenreader.change_language()}</span>
+    <Icon icon="localize" />
+  </button>
+
+  <ul slot="menu">
+    {
+      locales.map((locale) => (
+        <li
+          role="menuitem"
+          aria-disabled={locale === current ? "true" : "false"}
+        >
+          {locale === current ? (
+            <span lang={locale}>{labels[locale] ?? locale}</span>
+          ) : (
+            <a
+              href={getRelativeLocaleUrl(
+                locale,
+                Astro.url.pathname.substring(locale.length + 1),
+              )}
+              lang={locale}
+            >
+              {labels[locale]}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</langauge-selector>
+
+<style>
+  langauge-selector {
+    position: relative; /* anchor for absolute menu */
+  }
+
+  .lang-mobile {
+    --icon-size: var(--text-xl);
+    display: block;
+    align-self: center;
+  }
+
+  .lang-desktop {
+    display: none;
+  }
+
+  @media (min-width: 50em) {
+    .lang-mobile {
+      display: none;
+    }
+    .lang-desktop {
+      display: block;
+    }
+  }
+
+
+  /* The trigger button */
+  .lang-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* The dropdown menu */
+  ul[slot="menu"] {
+    position: absolute;
+    top: 50%;
+    z-index: 9999;
+    background: var(--gray-999);
+    color: var(--gray-200);
+    border: 0;
+    border-radius: 0.75rem;
+    padding: 0.25rem 0;
+    min-width: 8rem;
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+  }
+
+  @media (min-width: 50em) {
+    ul[slot="menu"] {
+      top: calc(100% + 0.5rem);
+      box-shadow: var(--shadow-sm);
+    }
+  }
+
+  ul[slot="menu"][hidden] {
+    display: none;
+  }
+
+  /* Menu items */
+  ul[slot="menu"] li {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul[slot="menu"] a,
+  ul[slot="menu"] span {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  ul[slot="menu"] a:hover {
+    background: var(--hover-color);
+  }
+
+  /* Disabled (current language) */
+  ul[slot="menu"] [aria-disabled="true"] span {
+    color: var(--gray-500);
+    cursor: default;
+  }
+</style>
+
+<script>
+  class LanguageSelector extends HTMLElement {
+    #trigger: HTMLButtonElement | null;
+    #menu: HTMLButtonElement | null;
+    #isOpen: boolean;
+
+    constructor() {
+      super();
+      this.#trigger = null;
+      this.#menu = null;
+      this.#isOpen = false;
+      this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    }
+
+    connectedCallback() {
+      this.#trigger = this.querySelector('[slot="trigger"]');
+      this.#menu = this.querySelector('[slot="menu"]');
+
+      // ARIA setup
+      const menuId = `lang-menu-${Math.random().toString(36).slice(2)}`;
+      this.#menu!.id = menuId;
+      this.#menu!.hidden = true;
+      this.#menu!.setAttribute("role", "menu");
+
+      this.#trigger!.setAttribute("aria-haspopup", "menu");
+      this.#trigger!.setAttribute("aria-expanded", "false");
+      this.#trigger!.setAttribute("aria-controls", menuId);
+
+      // Events
+      this.#trigger!.addEventListener("click", () => this.toggle());
+      this.#trigger!.addEventListener("keydown", (e) => this.onTriggerKey(e));
+      this.#menu!.addEventListener("keydown", (e) => this.onMenuKey(e));
+    }
+
+    toggle() {
+      this.#isOpen ? this.close() : this.openMenu();
+    }
+
+    openMenu() {
+      this.#isOpen = true;
+      this.#menu!.hidden = false;
+      this.#trigger!.setAttribute("aria-expanded", "true");
+      document.addEventListener("click", this.handleDocumentClick);
+    }
+
+    close() {
+      this.#isOpen = false;
+      this.#menu!.hidden = true;
+      this.#trigger!.setAttribute("aria-expanded", "false");
+      document.removeEventListener("click", this.handleDocumentClick);
+    }
+
+    handleDocumentClick(e: MouseEvent) {
+      if (!this.contains(e.target as Node)) {
+        this.close();
+      }
+    }
+
+    onTriggerKey(e: KeyboardEvent) {
+      const items = this.getMenuItems();
+      if (e.key === "ArrowDown") {
+        this.openMenu();
+        items[0]?.focus();
+        e.preventDefault();
+      }
+      if (e.key === "ArrowUp") {
+        this.openMenu();
+        items[items.length - 1]?.focus();
+        e.preventDefault();
+      }
+    }
+
+    onMenuKey(e: KeyboardEvent) {
+      const items = this.getMenuItems();
+      const currentIndex = items.indexOf(
+        document.activeElement as
+          | HTMLAnchorElement
+          | HTMLButtonElement
+          | HTMLLIElement,
+      );
+
+      if (e.key === "ArrowDown") {
+        const next = items[currentIndex + 1] || items[0];
+        next.focus();
+        e.preventDefault();
+      }
+
+      if (e.key === "ArrowUp") {
+        const prev = items[currentIndex - 1] || items[items.length - 1];
+        prev.focus();
+        e.preventDefault();
+      }
+
+      if (e.key === "Escape") {
+        this.close();
+        this.#trigger!.focus();
+      }
+    }
+
+    getMenuItems() {
+      return [
+        ...this.#menu!.querySelectorAll(
+          'a, button, [role="menuitem"]:not([aria-disabled="true"])',
+        ),
+      ] as Array<HTMLAnchorElement | HTMLButtonElement | HTMLLIElement>;
+    }
+  }
+
+  customElements.define("langauge-selector", LanguageSelector);
+</script>

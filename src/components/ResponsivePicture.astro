@@ -1,0 +1,176 @@
+---
+interface Props {
+  id?: string;
+  title?: string
+  altText: string;
+  image: ImageMetadata;
+  loading?: "eager" | "lazy";
+  fetchPriority?: "auto" | "high" | "low";
+  width?: number;
+  center?: boolean;
+}
+
+const {
+  id = crypto.randomUUID(),
+  title,
+  altText,
+  image,
+  loading = "lazy",
+  fetchPriority = "low",
+  width = image.width,
+  center: center = false,
+} = Astro.props;
+
+import type { HTMLAttributes } from "astro/types";
+import { Picture } from "astro:assets";
+
+const containerId = `${id}-container`;
+const blurId = `${id}-blur`;
+
+const attrs: HTMLAttributes<'picture'> = altText !== '' ? {} : { 
+  "aria-hidden": true,
+  inert: true,
+  role: "presentation"
+}
+---
+
+<responsive-picture
+  id={containerId}
+  class="picture-container"
+  data-container-id={containerId}
+  data-sharp-id={id}
+  data-blur-id={blurId}
+  data-center={center}
+>
+  <Picture
+    title={title}
+    alt={altText}
+    src={image}
+    formats={["avif"]}
+    fallbackFormat="jpeg"
+    quality={95}
+    decoding="async"
+    loading={loading}
+    layout="full-width"
+    fit="contain"
+    fetchpriority={fetchPriority}
+    id={id}
+    width={width}
+    class="loading sharp"
+    {...attrs}
+  />
+  <Picture
+    alt=""
+    aria-hidden={true}
+    inert={true}
+    role="presentation"
+    src={image}
+    formats={["avif"]}
+    fallbackFormat="jpeg"
+    quality={1}
+    width={(100 * image.height) / image.width}
+    height={100}
+    priority={true}
+    id={blurId}
+    class="blur"
+  />
+</responsive-picture>
+
+<style is:global>
+  responsive-picture {
+    display: block;
+    height: inherit;
+  }
+
+  responsive-picture img {
+    width: 100%;
+  }
+  
+  responsive-picture .blur {
+    filter: blur(0.7rem);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+  }
+  responsive-picture .loading.sharp {
+    position: absolute;
+    inset: 0;
+  }
+  responsive-picture .sharp:not(.loading) {
+    position: relative;
+    z-index: -1;
+  }
+  responsive-picture .blur,
+  responsive-picture .sharp {
+    transition: opacity 0.4s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    transform: translateY(var(--vertical-offset, 0));
+  }
+</style>
+
+<script>
+  class ResponsivePicture extends HTMLElement {
+    #sharp: HTMLImageElement;
+    #blur: HTMLImageElement | null;
+
+    constructor() {
+      super();
+      this.#sharp = document.getElementById(
+        this.dataset.sharpId!,
+      ) as HTMLImageElement;
+      this.#blur = document.getElementById(
+        this.dataset.blurId!,
+      ) as HTMLImageElement;
+    }
+
+    connectedCallback() {
+      if (this.#sharp.complete) {
+        this.reveal();
+      } else {
+        this.#sharp.onload = this.reveal;
+      }
+
+      if (JSON.parse(this.dataset.center!)) {
+        this.centerInContainer();
+      }
+    }
+
+    reveal = () => {
+      this.#blur!.parentElement!.remove();
+      this.#sharp.style.boxShadow = "var(--shadow-md)";
+      this.#sharp.classList.remove("loading");
+    };
+
+    computeCenterVerticalOffset = () => {
+      const rect = this.getBoundingClientRect();
+      const imgRect = this.#sharp.getBoundingClientRect();
+      const containerHeight = rect.height;
+      const imgHeight = imgRect.height;
+      const maxShift = Math.abs(imgHeight - containerHeight);
+      const shift = 0.5 * maxShift;
+      this.#sharp.style.setProperty("--vertical-offset", -shift + "px");
+      this.#blur?.style.setProperty("--vertical-offset", -shift + "px");
+    };
+
+    centerInContainer() {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              requestAnimationFrame(this.computeCenterVerticalOffset);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0,
+        },
+      );
+      observer.observe(this);
+
+      window.addEventListener("resize", () => {
+        requestAnimationFrame(this.computeCenterVerticalOffset);
+      });
+    }
+  }
+
+  customElements.define("responsive-picture", ResponsivePicture);
+</script>

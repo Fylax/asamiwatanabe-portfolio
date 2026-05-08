@@ -1,0 +1,106 @@
+---
+import ResponsivePicture from "./ResponsivePicture.astro";
+import propic from "@assets/asami.jpg";
+
+const L = Astro.locals.L;
+
+---
+
+<section id="about-me" class="section">
+  <header class="section-header stack gap-2 lg:gap-4">
+    <h1 set:html={L.aboutme.header()} />
+  </header>
+
+  <div class="about-me">
+    {L.aboutme.description().split("\n").map((line) => <p set:html={line} />)}
+  </div>
+  <div id="aboutme-picture">
+    <ResponsivePicture
+      id="aboutme-img"
+      altText={L.aboutme.name()}
+      image={propic}
+      class:list="aboutme"
+    />
+  </div>
+</section>
+
+<style is:global>
+  #about-me {
+    z-index: -2;
+    display: grid;
+    gap: 2rem;
+    position: relative;
+    grid-template-areas:
+      "header"
+      "text"
+      "picture";
+    border: 1px solid var(--accent-dark);
+    border-radius: 1.5rem;
+    padding: 2rem 2.5rem;
+    box-shadow: var(--shadow-md);
+    margin: 1rem;
+    background-color: var(--gray-999);
+  }
+
+  #about-me .section-header {
+    justify-self: center;
+    text-align: center;
+    max-width: 50ch;
+    font-size: var(--text-md);
+    color: var(--gray-300);
+  }
+
+  #about-me .section-header h1 {
+    font-size: var(--text-2xl);
+  }
+
+  #aboutme-img,
+  #aboutme-img-blur {
+    border-radius: 50%;
+  }
+
+  @media (min-width: 50em) {
+    #about-me {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "header picture"
+        "text picture";
+      gap: 5rem;
+    }
+
+    #about-me .section-header {
+      grid-area: header;
+      font-size: var(--text-lg);
+    }
+
+    #about-me .section-header h1 {
+      font-size: var(--text-4xl);
+    }
+
+    #about-me div.about-me {
+      grid-area: text;
+    }
+
+    #aboutme-picture {
+      grid-area: picture;
+    }
+  }
+
+  @media (min-width: 55em) {
+    #about-me {
+      grid-template-columns: 1.5fr 1fr;
+    }
+  }
+
+  @media (min-width: 60em) {
+    #about-me {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  @media (min-width: 70em) {
+    #about-me {
+      grid-template-columns: 3.5fr 1fr;
+    }
+  }
+</style>

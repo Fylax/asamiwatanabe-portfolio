@@ -1,0 +1,38 @@
+{
+  "name": "asami",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "unsafebuild": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "typesafe-i18n": "typesafe-i18n"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/ts-plugin": "^1.10.7",
+    "@playform/compress": "^0.2.3",
+    "astro": "^6.3.1",
+    "astro-favicons": "^3.1.6",
+    "astro-purgecss": "^6.0.1",
+    "astro-seo-meta": "^6.0.0",
+    "astro-seo-schema": "^6.0.0",
+    "install": "^0.13.0",
+    "purgecss": "^8.0.0",
+    "schema-dts": "^1.1.5",
+    "sharp": "^0.34.5",
+    "typesafe-i18n": "^5.27.1",
+    "viewerjs": "^1.11.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "0.14.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.59.2"
+  }
+}

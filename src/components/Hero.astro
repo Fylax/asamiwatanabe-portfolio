@@ -1,0 +1,82 @@
+---
+import ResponsivePicture from './ResponsivePicture.astro'
+import heroImage from '@assets/works/hero.jpg';
+
+const L = Astro.locals.L;
+---
+
+<header class="hero" id="hero">
+	<ResponsivePicture
+		id="hero-img"
+		altText={L.hero()}
+		image={heroImage}
+		loading="eager"
+		fetchPriority="high"
+	/>
+</header>
+
+<style is:global>
+	#hero-img-blur, #hero-img {
+		border-radius: 1.5rem;
+	}
+
+	@media (min-aspect-ratio: 8/7) {
+		#hero {
+			height: calc(100vh - var(--nav-height, 0));
+			overflow: hidden;
+		}
+
+		#hero-img-blur, #hero-img {
+			width: 100%;
+			height: fit-content;
+			display: block;
+			box-shadow: none;
+			border-radius: 0;
+			transform: translateY(var(--hero-offset, 0));
+		}
+	}
+</style>
+
+<script>
+	const hero = document.getElementById('hero');
+	const img = document.getElementById('hero-img');
+  	const blur = document.getElementById('hero-img-blur');
+	
+	let parallaxEnabled = (window.innerWidth / window.innerHeight) > (8 / 7);
+	
+	let heroHeight: number, imgHeight: number, maxShift: number;
+	function computeSizes() {
+		if (!parallaxEnabled) return;
+		hero?.style.setProperty('--nav-height', document.getElementsByTagName('nav')[0].offsetHeight + 'px')
+		heroHeight = hero?.getBoundingClientRect().height ?? 0;
+		imgHeight = img?.getBoundingClientRect().height ?? 0;
+		maxShift = Math.abs(imgHeight - heroHeight);
+	}
+
+	let ticking = false;
+	function onScroll() {
+        if (ticking || !parallaxEnabled) return;
+        requestAnimationFrame(update);
+        ticking = true;
+    }
+
+	function update() {
+		ticking = false;
+
+		const scrolled = window.scrollY;
+		const threshold = heroHeight * 0.2;
+		const progress = Math.min(Math.max(scrolled / threshold, 0), 1);
+		const shift = Math.abs(Math.min(Math.max(progress * maxShift, 0), maxShift));
+		img?.style.setProperty('--hero-offset', -shift + 'px');
+		blur?.style.setProperty('--hero-offset', -shift + 'px');
+	}
+
+	computeSizes();
+	window.addEventListener('resize', () => {
+		parallaxEnabled = (window.innerWidth / window.innerHeight) > (8 / 7);
+		if (!parallaxEnabled) return;
+		computeSizes();
+		update();
+	});
+	window.addEventListener('scroll', onScroll);
+</script>

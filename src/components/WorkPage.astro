@@ -1,0 +1,33 @@
+---
+interface Props {
+  workIndex: number;
+  images: Map<string, ImageMetadata>;
+  mainImage: ImageMetadata
+}
+
+const { workIndex, images, mainImage } = Astro.props;
+
+import ContactCTA from "@components/ContactCTA.astro";
+import Gallery from "@components/Gallery.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import { getGallery } from "../gallery";
+
+const L = Astro.locals.L;
+const gallery = getGallery(workIndex, L, images);
+
+---
+
+<BaseLayout
+  title={gallery.title},
+  description={gallery.description},
+  image={mainImage}
+>
+  <div class="stack gap-20 lg:gap-48" transition:animate="fade" >
+    <main class="wrapper stack gallery gap-20 lg:gap-48">
+      <Gallery gallery={gallery} />
+    </main>
+
+    <ContactCTA/>
+  </div>
+</BaseLayout>

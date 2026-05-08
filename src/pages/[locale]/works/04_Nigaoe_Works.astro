@@ -1,0 +1,31 @@
+---
+import WorkPage from "@components/WorkPage.astro";
+
+export { getStaticPaths };
+import { getStaticPaths } from "../../../locales";
+
+import img01 from "@assets/works/04_Nigaoe_Works/01_family.jpg";
+import img02 from "@assets/works/04_Nigaoe_Works/02_family.jpg";
+import img03 from "@assets/works/04_Nigaoe_Works/03_pet.jpg";
+import img04 from "@assets/works/04_Nigaoe_Works/04_baby1.jpg";
+import img05 from "@assets/works/04_Nigaoe_Works/05_baby2.jpg";
+import img06 from "@assets/works/04_Nigaoe_Works/06_a_girl.jpg";
+import img07 from "@assets/works/04_Nigaoe_Works/07_a_boy.jpg";
+
+const images = new Map<string, ImageMetadata>([
+  ["04_Nigaoe_Works/01_family.jpg", img01],
+  ["04_Nigaoe_Works/02_family.jpg", img02],
+  ["04_Nigaoe_Works/03_pet.jpg", img03],
+  ["04_Nigaoe_Works/04_baby1.jpg", img04],
+  ["04_Nigaoe_Works/05_baby2.jpg", img05],
+  ["04_Nigaoe_Works/06_a_girl.jpg", img06],
+  ["04_Nigaoe_Works/07_a_boy.jpg", img07],
+]);
+
+const workIndes = 3;
+---
+<WorkPage
+  workIndex={workIndes}
+  images={images}
+  mainImage={img02}
+/>

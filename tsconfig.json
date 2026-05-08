@@ -1,0 +1,35 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [
+    ".astro/types.d.ts",
+    "**/*",
+    "./worker-configuration.d.ts"
+  ],
+  "exclude": [
+    "dist"
+  ],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true,
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ],
+    "paths": {
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@i18n/*": [
+        "./src/i18n/*"
+      ]
+    }
+  }
+}

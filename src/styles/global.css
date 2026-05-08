@@ -1,0 +1,278 @@
+/* Global variables */
+:root {
+    /* Colors */
+    --gray-0: light-dark(#090b11, #ffffff);
+    --gray-50: light-dark(#141925, #f3f4f7);
+    --gray-100: light-dark(#283044, #e3e6ee);
+    --gray-200: light-dark(#3d4663, #c3cadb);
+    --gray-300: light-dark(#505d84, #a3acc8);
+    --gray-400: light-dark(#6474a2, #8490b5);
+    --gray-500: light-dark(#8490b5, #6474a2);
+    --gray-600: light-dark(#a3acc8, #505d84);
+    --gray-700: light-dark(#c3cadb, #3d4663);
+    --gray-800: light-dark(#e3e6ee, #283044);
+    --gray-900: light-dark(#f3f4f7, #141925);
+
+    /* Special gray */
+    --gray-999-basis: 0, 0%, 100%;
+    --gray-999: light-dark(#ffffff, #090b11);
+
+    /* Accent colors */
+    --accent-light: light-dark(#c561f6, #1c0056);
+    --accent-regular: #7611a6;
+    --accent-dark: light-dark(#1c0056, #c561f6);
+
+    --accent-overlay: hsla(280, 89%, 67%, 0.33);
+    --accent-subtle-overlay: light-dark(
+        hsla(280, 89%, 67%, 0.33),
+        hsla(281, 81%, 36%, 0.33)
+    );
+
+    --accent-text-over: light-dark(#ffffff, #ffffff);
+
+    --hover-color: light-dark(var(--accent-light), var(--accent-regular));
+    --link-color: light-dark(var(--accent-regular), var(--accent-dark));
+
+    /* Gradients (kept semantic, not forced into light-dark) */
+    --gradient-stop-1: light-dark(#c561f6, #4c11c6);
+    --gradient-stop-2: var(--accent-regular);
+    --gradient-stop-3: light-dark(#1c0056, #c561f6);
+
+    --gradient-subtle: light-dark(
+        linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 150%),
+        linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%)
+    );
+
+    --gradient-accent: linear-gradient(
+        150deg,
+        var(--gradient-stop-1),
+        var(--gradient-stop-2),
+        var(--gradient-stop-3)
+    );
+
+    --gradient-accent-orange: linear-gradient(150deg, #ca7879, var(--accent-regular), var(--accent-dark));
+
+    --gradient-stroke: light-dark(
+        linear-gradient(180deg, var(--gray-900), var(--gray-700)),
+        linear-gradient(180deg, var(--gray-600), var(--gray-800))
+    );
+
+    /* Shadows (kept as-is; multi-layer shadows don't map cleanly to light-dark) */
+    --shadow-sm:
+        0px 6px 3px rgba(9, 11, 17, 0.01),
+        0px 4px 2px rgba(9, 11, 17, 0.01),
+        0px 2px 2px rgba(9, 11, 17, 0.02),
+        0px 0px 1px rgba(9, 11, 17, 0.03);
+
+    --shadow-md:
+        0px 28px 11px rgba(9, 11, 17, 0.01),
+        0px 16px 10px rgba(9, 11, 17, 0.03),
+        0px 7px 7px rgba(9, 11, 17, 0.05),
+        0px 2px 4px rgba(9, 11, 17, 0.06);
+
+    --shadow-lg:
+        0px 62px 25px rgba(9, 11, 17, 0.01),
+        0px 35px 21px rgba(9, 11, 17, 0.05),
+        0px 16px 16px rgba(9, 11, 17, 0.1),
+        0px 4px 9px rgba(9, 11, 17, 0.12);
+
+    /* Text Sizes */
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-md: 1.125rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.625rem;
+    --text-2xl: 2.125rem;
+    --text-3xl: 2.625rem;
+    --text-4xl: 3.5rem;
+    --text-5xl: 4.5rem;
+
+    /* Transitions */
+    --theme-transition: 0.2s ease-in-out;
+}
+
+:root:not(.theme-dark) {
+  color-scheme: light;
+}
+
+/* Dark theme — only what cannot be expressed with light-dark() */
+:root.theme-dark {
+    color-scheme: dark;
+
+    /* Gray basis for hsla overlays */
+    --gray-999-basis: 225, 31%, 5%;
+
+    /* Accent subtle overlay */
+    --accent-subtle-overlay: hsla(281, 81%, 36%, 0.33);
+
+    /* Gradients that differ structurally */
+    --gradient-subtle: linear-gradient(150deg, var(--gray-900) 19%, var(--gray-999) 81%);
+    --gradient-accent-orange: linear-gradient(150deg, #ca7879, var(--accent-regular), var(--accent-light));
+    --gradient-stroke: linear-gradient(180deg, var(--gray-600), var(--gray-800));
+
+    /* Shadows inverted for dark mode */
+    --shadow-sm:
+        0px 6px 3px rgba(255, 255, 255, 0.01),
+        0px 4px 2px rgba(255, 255, 255, 0.01),
+        0px 2px 2px rgba(255, 255, 255, 0.02),
+        0px 0px 1px rgba(255, 255, 255, 0.03);
+
+    --shadow-md:
+        0px 28px 11px rgba(255, 255, 255, 0.01),
+        0px 16px 10px rgba(255, 255, 255, 0.03),
+        0px 7px 7px rgba(255, 255, 255, 0.05),
+        0px 2px 4px rgba(255, 255, 255, 0.06);
+
+    --shadow-lg:
+        0px 62px 25px rgba(255, 255, 255, 0.01),
+        0px 35px 21px rgba(255, 255, 255, 0.05),
+        0px 16px 16px rgba(255, 255, 255, 0.1),
+        0px 4px 9px rgba(255, 255, 255, 0.12);
+}
+
+/* Fonts */
+:root {
+    --font-system: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+    --font-brand: var(--font-rubik), var(--font-system);
+    --font-body: Inter, var(--font-system);
+}
+
+:root:lang(ja) {
+  --font-brand: "Noto Sans JP", var(--font-system);
+  --font-body: "Noto Sans JP", var(--font-system);
+}
+
+[lang]:not([lang="ja"]) {
+    font-family: var(--font-rubik), var(--font-system);
+}
+
+[lang="ja"] {
+    font-family: "Noto Sans JP", var(--font-system);
+}
+
+html,
+body {
+    min-height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--gray-999);
+    color: var(--gray-200);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow: hidden;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (forced-colors: active) {
+
+    :root,
+    :root.theme-dark {
+        --gray-100: CanvasText;
+        --gray-999: Canvas;
+        --accent-regular: Highlight;
+        --accent-text-over: CanvasText;
+    }
+
+    * {
+        forced-color-adjust: auto;
+    }
+
+    .button,
+    .card,
+    .link {
+        box-shadow: none;
+        border: 1px solid ButtonText;
+        background: Canvas;
+        color: CanvasText;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    line-height: 1.1;
+    font-family: var(--font-brand);
+    font-weight: 600;
+    color: var(--gray-100);
+}
+
+h3 {
+    font-size: var(--text-3xl);
+}
+
+/* Utilities */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.wrapper:not(.fullscreen-landscape) {
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    max-width: 83rem;
+}
+
+@media (max-aspect-ratio: 8/7) {
+    .wrapper.fullscreen-landscape {
+        margin-inline: auto;
+        padding-inline: 1.5rem;
+        max-width: 83rem;
+    }
+
+    .wrapper:not(.fullscreen-landscape):not(.gallery) {
+        margin-inline: 0;
+        padding-inline: 0;
+    }
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-8 { gap: 2rem; }
+.gap-10 { gap: 2.5rem; }
+.gap-15 { gap: 3.75rem; }
+.gap-20 { gap: 5rem; }
+.gap-30 { gap: 7.5rem; }
+.gap-48 { gap: 12rem; }
+
+@media (min-width: 50em) {
+    .lg\:gap-2 { gap: 0.5rem; }
+    .lg\:gap-4 { gap: 1rem; }
+    .lg\:gap-8 { gap: 2rem; }
+    .lg\:gap-10 { gap: 2.5rem; }
+    .lg\:gap-15 { gap: 3.75rem; }
+    .lg\:gap-20 { gap: 5rem; }
+    .lg\:gap-30 { gap: 7.5rem; }
+    .lg\:gap-48 { gap: 12rem; }
+}

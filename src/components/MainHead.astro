@@ -1,0 +1,148 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+}
+
+const { title, description, image } = Astro.props;
+
+import "../styles/global.css";
+
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+
+// all seo tags here: https://github.com/codiume/orbit/tree/main/packages/astro-seo-meta
+import { Seo } from "astro-seo-meta";
+import { Schema } from "astro-seo-schema";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { baseLocale, locales } from "@i18n/i18n-util";
+
+const L = Astro.locals.L;
+const preferJapaneseName = Astro.locals.locale === "ja";
+const siteUrl = (
+  Astro.site?.href ??
+  Astro.url?.origin ??
+  "http://localhost:4321"
+).replace(/\/$/, "");
+
+import propic from "@assets/asami.jpg";
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<Seo
+  title={title}
+  description={description}
+  facebook={{
+    url: siteUrl + Astro.url.pathname,
+    image: `${siteUrl}/${image.src.replace(/^\//, "")}`,
+    type: "website",
+  }}
+  ,
+  twitter={{
+    card: "summary_large_image",
+    image: `${siteUrl}/${image.src.replace(/^\//, "")}`,
+  }}
+/>
+<meta name="color-scheme" content="light dark" />
+<Schema
+  item={{
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${siteUrl}\#asami`,
+    name: preferJapaneseName ? "渡邉麻美" : "Asami Watanabe",
+    alternateName: preferJapaneseName ? "Asami Watanabe" : "渡邉麻美",
+    familyName: preferJapaneseName ? "渡邉" : "Watanabe",
+    givenName: preferJapaneseName ? "麻美" : "Asami",
+    url: siteUrl,
+    image: `${siteUrl}/${propic.src.replace(/^\//, "")}`,
+    jobTitle: L.seo.illustrator(),
+    birthDate: "1987-09-10",
+    gender: L.seo.gender(),
+    knowsLanguage: ["ja", "en"],
+    nationality: {
+      "@type": "Country",
+      name: L.seo.japan(),
+    },
+    sameAs: ["https://www.instagram.com/samie8e"],
+  }}
+/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Noto+Sans+JP:wght@100..900&family=Rubik:wght@300..900&display=swap"
+  rel="stylesheet"
+/>
+<Font cssVariable="--font-asami" />
+
+<link rel="canonical" href={siteUrl + Astro.url.pathname} />
+{
+  locales.map((locale) => (
+    <link
+      rel="alternate"
+      hreflang={locale}
+      href={
+        siteUrl +
+        getRelativeLocaleUrl(
+          locale,
+          Astro.url.pathname.substring(locale.length + 1),
+        )
+      }
+    />
+  ))
+}
+<link
+  rel="alternate"
+  hreflang="x-default"
+  href={siteUrl +
+    getRelativeLocaleUrl(
+      baseLocale,
+      Astro.url.pathname.substring(baseLocale.length + 1),
+    )}
+/>
+<script is:inline>
+  // Instant theme application (no flash)
+  const getThemePreference = () => {
+    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
+      return localStorage.getItem("theme");
+    }
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  };
+  const isDark = getThemePreference() === "dark";
+  document.documentElement.classList.toggle("theme-dark", isDark);
+
+  if (typeof localStorage !== "undefined") {
+    // Watch the document element and persist user preference when it changes.
+    const observer = new MutationObserver(() => {
+      if (localStorage.getItem("before-swap-theme") !== null) {
+        return;
+      }
+      const isDark = document.documentElement.classList.contains("theme-dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+</script>
+<script>
+  // Re-apply theme after every Astro View Transition
+  document.addEventListener("astro:before-swap", () => {
+    localStorage.setItem(
+      "before-swap-theme",
+      localStorage.getItem("theme") ?? "light",
+    );
+  });
+  document.addEventListener("astro:after-swap", () => {
+    localStorage.removeItem("before-swap-theme");
+  });
+</script>
+
+<ClientRouter />

@@ -1,0 +1,55 @@
+---
+import WorkPage from "@components/WorkPage.astro";
+
+export { getStaticPaths };
+import { getStaticPaths } from "../../../locales";
+
+import img01 from "@assets/works/03_POP_Illustrations/01_wheel.jpg";
+import img02 from "@assets/works/03_POP_Illustrations/02_wheel2.jpg";
+import img03 from "@assets/works/03_POP_Illustrations/03_planets.jpg";
+import img04 from "@assets/works/03_POP_Illustrations/04_circus.jpg";
+import img05 from "@assets/works/03_POP_Illustrations/05_big_tree.jpg";
+import img06 from "@assets/works/03_POP_Illustrations/06_a_boat.jpg";
+import img07 from "@assets/works/03_POP_Illustrations/07_twins.jpg";
+import img08 from "@assets/works/03_POP_Illustrations/08_a_funny_guy.jpg";
+import img09 from "@assets/works/03_POP_Illustrations/09_a_pumpkin_house.jpg";
+import img10 from "@assets/works/03_POP_Illustrations/10_lotus_root_castle.jpg";
+import img11 from "@assets/works/03_POP_Illustrations/11_the_three_hares.jpg";
+import img12 from "@assets/works/03_POP_Illustrations/12_lovely_hat.jpg";
+import img13 from "@assets/works/03_POP_Illustrations/13_zoo.jpg";
+import img14 from "@assets/works/03_POP_Illustrations/14_nuts_to_you.jpg";
+import img15 from "@assets/works/03_POP_Illustrations/15_kitty_tower.jpg";
+import img16 from "@assets/works/03_POP_Illustrations/16_lets_start_the_party.jpg";
+import img17 from "@assets/works/03_POP_Illustrations/17_swimming.jpg";
+import img18 from "@assets/works/03_POP_Illustrations/18_animals_lantern.jpg";
+import img19 from "@assets/works/03_POP_Illustrations/19_oshiruko.jpg";
+
+const images = new Map<string, ImageMetadata>([
+  ["03_POP_Illustrations/01_wheel.jpg", img01],
+  ["03_POP_Illustrations/02_wheel2.jpg", img02],
+  ["03_POP_Illustrations/03_planets.jpg", img03],
+  ["03_POP_Illustrations/04_circus.jpg", img04],
+  ["03_POP_Illustrations/05_big_tree.jpg", img05],
+  ["03_POP_Illustrations/06_a_boat.jpg", img06],
+  ["03_POP_Illustrations/07_twins.jpg", img07],
+  ["03_POP_Illustrations/08_a_funny_guy.jpg", img08],
+  ["03_POP_Illustrations/09_a_pumpkin_house.jpg", img09],
+  ["03_POP_Illustrations/10_lotus_root_castle.jpg", img10],
+  ["03_POP_Illustrations/11_the_three_hares.jpg", img11],
+  ["03_POP_Illustrations/12_lovely_hat.jpg", img12],
+  ["03_POP_Illustrations/13_zoo.jpg", img13],
+  ["03_POP_Illustrations/14_nuts_to_you.jpg", img14],
+  ["03_POP_Illustrations/15_kitty_tower.jpg", img15],
+  ["03_POP_Illustrations/16_lets_start_the_party.jpg", img16],
+  ["03_POP_Illustrations/17_swimming.jpg", img17],
+  ["03_POP_Illustrations/18_animals_lantern.jpg", img18],
+  ["03_POP_Illustrations/19_oshiruko.jpg", img19],
+]);
+
+const workIndes = 2;
+---
+<WorkPage
+  workIndex={workIndes}
+  images={images}
+  mainImage={img11}
+/>

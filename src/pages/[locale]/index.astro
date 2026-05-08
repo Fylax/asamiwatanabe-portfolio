@@ -1,0 +1,86 @@
+---
+import ContactCTA from "@components/ContactCTA.astro";
+import Hero from "@components/Hero.astro";
+import AboutMe from "@components/AboutMe.astro";
+import GalleryLink from "@components/GalleryLink.astro";
+
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+import { getStaticPaths } from "../../locales";
+export { getStaticPaths };
+
+const L = Astro.locals.L;
+
+import heroImage from '@assets/works/hero.jpg';
+import bg01 from "@assets/works/01_Gallery_1_Fantastic_World/07_new_year.jpg";
+import bg02 from "@assets/works/02_Gallery_2_Nature_Inner_World/13_hearts.jpg";
+import bg03 from "@assets/works/03_POP_Illustrations/11_the_three_hares.jpg";
+import bg04 from "@assets/works/04_Nigaoe_Works/03_pet.jpg";
+import bg05 from "@assets/works/05_Others/02_new_year_card.jpg";
+
+const works = [
+  {
+    title: L.works['Gallery_1_Fantastic_World'].title(),
+    altText: L.works['Gallery_1_Fantastic_World'].descriptions.newYear(),
+    page: getRelativeLocaleUrl(Astro.locals.locale, "works/01_Gallery_1_Fantastic_World"),
+    background: bg01
+  },
+  {
+    title: L.works['Gallery_2_Nature_Inner_World'].title(),
+    altText: L.works['Gallery_2_Nature_Inner_World'].descriptions.hearts(),
+    page: getRelativeLocaleUrl(Astro.locals.locale, "works/02_Gallery_2_Nature_Inner_World"),
+    background: bg02
+  },
+  {
+    title: L.works['POP_Illustrations'].title(),
+    altText: L.works['POP_Illustrations'].descriptions.threeHares(),
+    page: getRelativeLocaleUrl(Astro.locals.locale, "works/03_POP_Illustrations"),
+    background: bg03
+  },
+  {
+    title: L.works['Nigaoe_Works'].title(),
+    altText: L.works['Nigaoe_Works'].descriptions.pet(),
+    page: getRelativeLocaleUrl(Astro.locals.locale, "works/04_Nigaoe_Works"),
+    background: bg04
+  },
+  {
+    title: L.works['Others'].title(),
+    altText: L.works['Others'].descriptions.newYearCard(),
+    page: getRelativeLocaleUrl(Astro.locals.locale, "works/05_Others"),
+    background: bg05
+  },
+];
+---
+
+<BaseLayout
+    title={L.seo.homepage.title()}
+    description={L.seo.homepage.description()}
+    image={heroImage}
+  >
+  <div class="stack gap-10 lg:gap-20" transition:animate="fade" >
+    <div class="wrapper fullscreen-landscape stack gap-8 lg:gap-20">
+      <Hero />
+    </div>
+
+    <main class="wrapper stack gap-20 lg:gap-48">
+      <AboutMe/>
+
+      <div class="wrapper stack lg:gap-4">
+      {
+        works.map((work) => (
+          <GalleryLink
+            title={work.title}
+            altText={work.altText}
+            page={work.page}
+            background={work.background}
+          />
+        ))
+      }
+      </div>
+
+      <ContactCTA />
+    </main>
+  </div>
+</BaseLayout>

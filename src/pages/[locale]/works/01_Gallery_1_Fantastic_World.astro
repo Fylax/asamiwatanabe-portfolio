@@ -1,0 +1,32 @@
+---
+import WorkPage from "@components/WorkPage.astro";
+
+export { getStaticPaths };
+import { getStaticPaths } from "../../../locales";
+
+import img01 from "@assets/works/01_Gallery_1_Fantastic_World/01_moon_flower.jpg";
+import img02 from "@assets/works/01_Gallery_1_Fantastic_World/02_the_stage.jpg";
+import img03 from "@assets/works/01_Gallery_1_Fantastic_World/03_polaris.jpg";
+import img04 from "@assets/works/01_Gallery_1_Fantastic_World/04_relaxing_time.jpg";
+import img05 from "@assets/works/01_Gallery_1_Fantastic_World/05_a_passionate_audience.jpg";
+import img06 from "@assets/works/01_Gallery_1_Fantastic_World/06_fu-jin_laijin.jpg";
+import img07 from "@assets/works/01_Gallery_1_Fantastic_World/07_new_year.jpg";
+
+const images = new Map<string, ImageMetadata>([
+  ["01_Gallery_1_Fantastic_World/01_moon_flower.jpg", img01],
+  ["01_Gallery_1_Fantastic_World/02_the_stage.jpg", img02],
+  ["01_Gallery_1_Fantastic_World/03_polaris.jpg", img03],
+  ["01_Gallery_1_Fantastic_World/04_relaxing_time.jpg", img04],
+  ["01_Gallery_1_Fantastic_World/05_a_passionate_audience.jpg", img05],
+  ["01_Gallery_1_Fantastic_World/06_fu-jin_laijin.jpg", img06],
+  ["01_Gallery_1_Fantastic_World/07_new_year.jpg", img07],
+]);
+
+const workIndes = 0;
+
+---
+<WorkPage
+  workIndex={workIndes}
+  images={images}
+  mainImage={img07}
+/>

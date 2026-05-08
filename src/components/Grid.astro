@@ -1,0 +1,34 @@
+<ul class="grid">
+  <slot />
+</ul>
+
+<style>
+  .grid {
+    display: grid;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  @media (min-width: 50em) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .grid {
+      --row-offset: 7.5rem;
+      padding-bottom: var(--row-offset);
+    }
+
+    /* Shift first item in each row vertically to create staggered effect. */
+    .grid > :global(:nth-child(odd)) {
+      transform: translateY(var(--row-offset));
+    }
+
+    /* If last row contains only one item, display it in the second column. */
+    .grid > :global(:last-child:nth-child(odd)) {
+      grid-column: 2 / 3;
+      transform: none;
+    }
+  }
+</style>

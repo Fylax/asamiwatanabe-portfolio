@@ -1,13 +1,27 @@
+# Build output (served by Cloudflare, not committed)
 dist/
+
+# Astro cache
 .astro/
+.astro-cache/
+
+# Cloudflare / wrangler
 .wrangler/
+
+# Dependencies
 node_modules/
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+
+# Env
 .env
 .env.production
+
+# OS / IDE
 .DS_Store
 .idea/
 .vscode/

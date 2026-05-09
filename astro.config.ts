@@ -19,7 +19,7 @@ const LL = locales.reduce(
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://localhost:4321",
+  site: "https://asamiwatanabe-portfolio.pages.dev",
   integrations: [
     favicons({
       name: LL.ja.seo.homepage.title(),

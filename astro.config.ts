@@ -19,7 +19,7 @@ const LL = locales.reduce(
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://asamiwatanabe-portfolio.pages.dev",
+  site: "https://asami-watanabe.com",
   integrations: [
     favicons({
       name: LL.ja.seo.homepage.title(),
@@ -41,9 +41,7 @@ export default defineConfig({
           comments: false,
           restructure: true,
         },
-        lightningcss: {
-          minify: true,
-        },
+        lightningcss: false,
       },
       HTML: {
         "html-minifier-terser": {
@@ -54,7 +52,8 @@ export default defineConfig({
           noNewlinesBeforeTagClose: true,
           removeComments: true,
           removeAttributeQuotes: false,
-          removeEmptyAttributes: (_, tag) => tag !== "img"
+          removeEmptyAttributes: (attrName: string, tag: string) => !attrName.startsWith("data-") && tag !== "img",
+          useShortDoctype: true,
         }
       },
       Image: false,

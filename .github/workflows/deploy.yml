@@ -7,9 +7,28 @@ on:
 permissions:
   contents: read
   pages: write
+  deployments: write
 
 jobs:
+  early-bailout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create test directory
+        run: |
+          mkdir dist
+          echo "Early bailout OK" > dist/index.html
+
+      - name: Test deploy
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          projectName: asamiwatanabe-portfolio
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
   build-and-deploy:
+    needs: early-bailout
     runs-on: ubuntu-latest
 
     steps:

@@ -2,7 +2,6 @@
 import { defineConfig, fontProviders } from "astro/config";
 
 import favicons from "astro-favicons";
-import purgecss from "astro-purgecss";
 import sitemap from "@astrojs/sitemap";
 import playformCompress from "@playform/compress";
 
@@ -34,7 +33,6 @@ export default defineConfig({
         lang: "ja"
       }
     }),
-    purgecss(),
     playformCompress({
       CSS: {
         csso: {

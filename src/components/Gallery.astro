@@ -285,7 +285,7 @@ const artworkIds = works.map((work, index) => `${siteUrl}#${index}${work.title.r
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
     const viewer = new Viewer(document.getElementById("gallery")!, {
       inline: false,
-      title: [3, (image: HTMLImageElement) => `${image.title} — ${image.alt}`],
+      title: (image: HTMLImageElement) => `${image.title} — ${image.alt}`,
       toolbar: {
         zoomIn: !isTouch,
         zoomOut: !isTouch,

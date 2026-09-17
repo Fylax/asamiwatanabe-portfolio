@@ -50,7 +50,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Update Language Files
-        run: pnpx typesafe-i18n --no-watch
+        run: pnpm run typesafe-i18n --no-watch
 
       - name: Build Astro
         run: pnpm run build

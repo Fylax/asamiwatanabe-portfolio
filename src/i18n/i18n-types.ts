@@ -21,7 +21,7 @@ type RootTranslation = {
 	hero: string
 	aboutme: {
 		/**
-		 * 渡​邉​麻​美
+		 * A​s​a​m​i​ ​W​a​t​a​n​a​b​e
 		 */
 		name: string
 		/**
@@ -193,7 +193,7 @@ type RootTranslation = {
 	works: {
 		Gallery_1_Fantastic_World: {
 			/**
-			 * ギ​ャ​ラ​リ​ー​1​：​<​b​r​>​幻​想​的​な​世​界
+			 * <​s​p​a​n​ ​l​a​n​g​=​"​e​n​"​>​G​a​l​l​e​r​y​ ​1​<​/​s​p​a​n​>​:​<​b​r​>​幻​想​的​な​世​界
 			 */
 			title: string
 			descriptions: {
@@ -229,7 +229,7 @@ type RootTranslation = {
 		}
 		Gallery_2_Nature_Inner_World: {
 			/**
-			 * ギ​ャ​ラ​リ​ー​2​：​<​b​r​>​自​然​と​内​な​る​世​界
+			 * <​s​p​a​n​ ​l​a​n​g​=​"​e​n​"​>​G​a​l​l​e​r​y​ ​2​<​/​s​p​a​n​>​:​<​b​r​>​自​然​と​内​な​る​世​界
 			 */
 			title: string
 			descriptions: {
@@ -293,7 +293,7 @@ type RootTranslation = {
 		}
 		POP_Illustrations: {
 			/**
-			 * ポ​ッ​プ​イ​ラ​ス​ト
+			 * <​s​p​a​n​ ​l​a​n​g​=​"​e​n​"​>​P​O​P​ ​I​l​l​u​s​t​r​a​t​i​o​n​s​<​/​s​p​a​n​>
 			 */
 			title: string
 			descriptions: {
@@ -377,7 +377,7 @@ type RootTranslation = {
 		}
 		Nigaoe_Works: {
 			/**
-			 * 似​顔​絵​ワ​ー​ク​ス
+			 * <​s​p​a​n​ ​l​a​n​g​=​"​e​n​"​>​N​i​g​a​o​e​ ​W​o​r​k​s​<​/​s​p​a​n​>
 			 */
 			title: string
 			descriptions: {
@@ -413,7 +413,7 @@ type RootTranslation = {
 		}
 		Others: {
 			/**
-			 * そ​の​他​の​作​品
+			 * <​s​p​a​n​ ​l​a​n​g​=​"​e​n​"​>​O​t​h​e​r​s​<​/​s​p​a​n​>
 			 */
 			title: string
 			descriptions: {
@@ -441,7 +441,7 @@ export type TranslationFunctions = {
 	hero: () => LocalizedString
 	aboutme: {
 		/**
-		 * 渡邉麻美
+		 * Asami Watanabe
 		 */
 		name: () => LocalizedString
 		/**
@@ -613,7 +613,7 @@ export type TranslationFunctions = {
 	works: {
 		Gallery_1_Fantastic_World: {
 			/**
-			 * ギャラリー1：<br>幻想的な世界
+			 * <span lang="en">Gallery 1</span>:<br>幻想的な世界
 			 */
 			title: () => LocalizedString
 			descriptions: {
@@ -649,7 +649,7 @@ export type TranslationFunctions = {
 		}
 		Gallery_2_Nature_Inner_World: {
 			/**
-			 * ギャラリー2：<br>自然と内なる世界
+			 * <span lang="en">Gallery 2</span>:<br>自然と内なる世界
 			 */
 			title: () => LocalizedString
 			descriptions: {
@@ -713,7 +713,7 @@ export type TranslationFunctions = {
 		}
 		POP_Illustrations: {
 			/**
-			 * ポップイラスト
+			 * <span lang="en">POP Illustrations</span>
 			 */
 			title: () => LocalizedString
 			descriptions: {
@@ -797,7 +797,7 @@ export type TranslationFunctions = {
 		}
 		Nigaoe_Works: {
 			/**
-			 * 似顔絵ワークス
+			 * <span lang="en">Nigaoe Works</span>
 			 */
 			title: () => LocalizedString
 			descriptions: {
@@ -833,7 +833,7 @@ export type TranslationFunctions = {
 		}
 		Others: {
 			/**
-			 * その他の作品
+			 * <span lang="en">Others</span>
 			 */
 			title: () => LocalizedString
 			descriptions: {

@@ -3,6 +3,7 @@ import type {
   LocalImageService,
   ImageOutputFormat,
   AstroConfig,
+  AstroRuntimeLogger,
 } from "astro";
 import sharpService from "astro/assets/services/sharp";
 import sharp from "sharp";
@@ -16,14 +17,16 @@ const service: LocalImageService<AstroConfig["image"]> = {
   validateOptions(
     options: ImageTransform,
     imageConfig: AstroConfig["image"],
+    logger: AstroRuntimeLogger
   ): ImageTransform | Promise<ImageTransform> {
-    return sharpService.validateOptions?.(options, imageConfig) ?? options;
+    return sharpService.validateOptions?.(options, imageConfig, logger) ?? options;
   },
 
   async transform(
     inputBuffer: Uint8Array,
     transform: LocalImageTransform,
     imageConfig: AstroConfig["image"],
+    logger: AstroRuntimeLogger
   ): Promise<{
     data: Uint8Array;
     format: ImageOutputFormat;
@@ -32,7 +35,7 @@ const service: LocalImageService<AstroConfig["image"]> = {
     const q = isNaN(parseInt(quality)) ? 90 : parseInt(quality);
 
     if (!["avif", "webp", "jpeg"].includes(format)) {
-      return await sharpService.transform(inputBuffer, transform, imageConfig);
+      return await sharpService.transform(inputBuffer, transform, imageConfig, logger);
     }
 
     let pipeline = sharp(inputBuffer).resize(width, height);
@@ -67,26 +70,28 @@ const service: LocalImageService<AstroConfig["image"]> = {
     };
   },
 
-  parseURL(url: URL, imageConfig: AstroConfig["image"]) {
-    return sharpService.parseURL(url, imageConfig);
+  parseURL(url: URL, imageConfig: AstroConfig["image"], logger: AstroRuntimeLogger) {
+    return sharpService.parseURL(url, imageConfig, logger);
   },
 
   getURL(
     options: ImageTransform,
     imageConfig: AstroConfig["image"],
+    logger: AstroRuntimeLogger
   ): string | Promise<string> {
-    return sharpService.getURL(options, imageConfig);
+    return sharpService.getURL(options, imageConfig, logger);
   },
 
-  getSrcSet(options: ImageTransform, imageConfig: AstroConfig["image"]) {
-    return sharpService.getSrcSet?.(options, imageConfig) ?? [];
+  getSrcSet(options: ImageTransform, imageConfig: AstroConfig["image"], logger: AstroRuntimeLogger) {
+    return sharpService.getSrcSet?.(options, imageConfig, logger) ?? [];
   },
 
   getHTMLAttributes(
     options: ImageTransform,
     imageConfig: AstroConfig["image"],
+    logger: AstroRuntimeLogger
   ) {
-    return sharpService.getHTMLAttributes?.(options, imageConfig) ?? {};
+    return sharpService.getHTMLAttributes?.(options, imageConfig, logger) ?? {};
   },
 };
 

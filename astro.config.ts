@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig } from "astro/config";
 
 import favicons from "astro-favicons";
 import sitemap from "@astrojs/sitemap";

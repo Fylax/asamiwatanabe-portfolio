@@ -3,7 +3,7 @@ import type { BaseTranslation } from "../i18n-types.js";
 const ja = {
   hero: "自分の路を進む姿を、風が後押ししている様子を表現した作品",
   aboutme: {
-    name: "渡邉麻美",
+    name: "Asami Watanabe",
     header: '<span lang="en">About Me</span>',
     description:
       "<strong style='font-size:var(--text-md)'>イラストレーター／画家</strong>\n" +
@@ -76,7 +76,7 @@ const ja = {
   },
   works: {
     Gallery_1_Fantastic_World: {
-      title: "ギャラリー1：<br>幻想的な世界",
+      title: '<span lang="en">Gallery 1</span>:<br>幻想的な世界',
       descriptions: {
         moonFlower: "月光花のように儚くも美しく咲く人々が集まる夜の世界",
         theStage:
@@ -92,7 +92,7 @@ const ja = {
       },
     },
     Gallery_2_Nature_Inner_World: {
-      title: "ギャラリー2：<br>自然と内なる世界",
+      title: '<span lang="en">Gallery 2</span>:<br>自然と内なる世界',
       descriptions: {
         fluffyShavedIce: "白熊の毛は白く見えるけど、かき氷の氷と同じく透明です",
         deepInTheSea: "深海はきっと見えない色や形に溢れている世界",
@@ -112,7 +112,7 @@ const ja = {
       },
     },
     POP_Illustrations: {
-      title: "ポップイラスト",
+      title: '<span lang="en">POP Illustrations</span>',
       descriptions: {
         wheel: "空飛ぶ宇宙クジラ１",
         wheel2: "空飛ぶ宇宙クジラ２",
@@ -137,7 +137,7 @@ const ja = {
       },
     },
     Nigaoe_Works: {
-      title: "似顔絵ワークス",
+      title: '<span lang="en">Nigaoe Works</span>',
       descriptions: {
         family1: "日本の伝統的な吉報模様を背景に家族の幸せを願い描きました",
         family2: "結婚記念日に奥様からのサプライズ似顔絵",
@@ -149,7 +149,7 @@ const ja = {
       },
     },
     Others: {
-      title: "その他の作品",
+      title: '<span lang="en">Others</span>',
       descriptions: {
         girl: "女の子",
         newYearCard: "年賀状",

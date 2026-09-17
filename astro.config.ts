@@ -91,28 +91,5 @@ export default defineConfig({
     service: {
       entrypoint: "src/services/image-compression.ts",
     },
-  },
-  fonts: [
-    {
-      provider: fontProviders.local(),
-      name: "Kyokasho Asami",
-      cssVariable: "--font-asami",
-      options: {
-        variants: [
-          {
-            src: ["./src/assets/fonts/ScriptwideKyokashoCJKASubset.woff2"],
-            weight: 400,
-            style: "normal",
-            display: "swap",
-            unicodeRange: [
-              "U+6E21",
-              "U+9089",
-              "U+9EBB",
-              "U+7F8E",
-            ] /* 渡 邉 麻 美 */,
-          },
-        ],
-      },
-    },
-  ],
+  }
 });

@@ -3,7 +3,6 @@ import { defineConfig } from "astro/config";
 
 import favicons from "astro-favicons";
 import sitemap from "@astrojs/sitemap";
-import playformCompress from "@playform/compress";
 
 import { baseLocale, locales, i18nObject } from "./src/i18n/i18n-util";
 import { loadAllLocales } from "./src/i18n/i18n-util.sync";
@@ -33,13 +32,13 @@ export default defineConfig({
         lang: "ja"
       }
     }),
-    playformCompress({
+    (await import("@playform/compress")).default({
       CSS: {
-        csso: {
-          comments: false,
-          restructure: true,
+        csso: false,
+        lightningcss: {
+          minify: true,
+          unusedSymbols: ["@charset", "@import", "@namespace"],
         },
-        lightningcss: false,
       },
       HTML: {
         "html-minifier-terser": {
@@ -67,7 +66,7 @@ export default defineConfig({
     }),
     sitemap(),
   ],
-  compressHTML: import.meta.env.PROD,
+  compressHTML: false,//import.meta.env.PROD,
   output: "static",
   build: {
     format: "directory",
